@@ -1,5 +1,3 @@
-// Comando pra executar o código
-// gcc -Wall atividade1.c -o atividade1 && ./atividade1
 #include <stdio.h>
 #include <stdlib.h>
 
