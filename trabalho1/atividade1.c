@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 const long int SIZE_IN_BYTES = 10 * 1024 * 1024; // 10MB
+const float ENTROPY_RATIO = 0.8;                 // decimal percentage
 
 void writeFile(char *fileName, unsigned char *data)
 {
@@ -36,9 +37,12 @@ void createPartialRandomizedFile(char *filename, int maxCharValue)
   int counter = 0;
   unsigned char randomNumber = getRandomValueUpTo(maxCharValue);
 
-  int _switch = -20;
+  int minCounter = (int)(ENTROPY_RATIO * -100.0);
+  int maxCounter = (int)(100.0 + minCounter);
 
-  while (counter < 150)
+  int _switch = minCounter;
+
+  while (counter < SIZE_IN_BYTES)
   {
     if (_switch >= 0)
     {
@@ -48,9 +52,9 @@ void createPartialRandomizedFile(char *filename, int maxCharValue)
     counter++;
 
     _switch++;
-    if (_switch == 70)
+    if (_switch == maxCounter)
     {
-      _switch = -30;
+      _switch = minCounter;
     }
   }
   writeFile(filename, data);
